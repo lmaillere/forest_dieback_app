@@ -1,7 +1,6 @@
 import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
-import pandas as pd
 import streamlit as st
 # nickname for Polynomial function
 P = np.polynomial.Polynomial
