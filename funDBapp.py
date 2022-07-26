@@ -83,7 +83,7 @@ def plotSim(v0, gamma, T_f, params, tspan = tspan):
     if v_roots.size == 0: lab0 = "équilibre stable"
     ax1.axhline(0, linestyle = (0, (3, 7)), color = col0, label = lab0) # pour la couleur, faire un if sur la taille de v_roots
     
-    # test ajout de petites imagettes
+    # ajout de petites imagettes
     im1 = image.imread("img/forest.png") 
     im2 = image.imread("img/desert.png") 
     
@@ -270,6 +270,21 @@ def plotBifGamma(v0, gamma, T_f,  params, plotTraj):
         ax13.plot(gamma_sim, int_FDB, color = 'C0', label = "trajectoire")
         ax13.plot(gamma, v0, 'o', color = 'C1', label = "végétation initiale")
         ax13.plot(gamma, int_FDB[-1], 'o', color = 'C0', label = "végétation finale")
+
+
+    # test ajout de petites imagettes
+    im1 = image.imread("img/forest.png") 
+    im2 = image.imread("img/desert.png") 
+       
+    vplot_st2 = v_plot_st[QQ(v_plot_st)>0.01]
+    # no it does not work as expected yet to put the forest in the right place
+    imax1 = fig13.add_axes([.2, (69+384*vplot_st2[-1])/510, 0.08, 0.08])
+    #imax1.set_axis_off()
+    imax1.imshow(im1, aspect="equal")
+
+    imax2 = fig13.add_axes([.82, 0.17, 0.07, 0.07])
+    imax2.set_axis_off()
+    imax2.imshow(im2, aspect="equal")
 
     ax13.legend(fontsize='10')
     ax13.set_xlabel('$\gamma$', fontsize='12')

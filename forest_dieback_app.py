@@ -44,7 +44,7 @@ with col23:
     gamma = st.slider(' Taux de perturbation', min_value=.1, max_value=.8, value = .3, step=0.05) 
 
 with col24:
-    T_f =  st.slider(' Température de forçage', min_value=15., max_value=30., value = 21., step=0.5)  
+    T_f =  st.slider(' Température de forçage', min_value=16., max_value=30., value = 21., step=0.5)  
 
 # encapsulation
 params_sim = np.array([g_0, T_opt, beta, T_f, a, gamma])
