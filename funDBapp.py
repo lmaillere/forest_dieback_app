@@ -237,13 +237,19 @@ def plotBifGamma(v0, gamma, T_f,  params, plotTraj):
     # création d'une figure, et d'un système d'axes
     fig13, ax13 = plt.subplots(figsize=(8, 6))  
 
-    # tracé des lieux des équilibres
-    ax13.plot(g_of_v_climChg(v_plot, t=0, params = params_sim, Tslope = 0)*(1-v_plot), v_plot , color='C2')
-    ax13.axhline(color = 'C2', label = "équilibre stable")
+    # plot de l'équilibre trivial avec la bonne stabilité
+    gamma_trans = g_of_v_climChg(0, t=0, params = params_sim, Tslope = 0)
+    if gamma_trans >= 0:
+        gamma_plot1 = np.arange(0, gamma_trans, .001)
+        gamma_plot2 = np.arange(gamma_trans, 1., .001)
+        ax13.plot(gamma_plot1, np.ones(gamma_plot1.shape)*0, color = 'C3')
+        ax13.plot(gamma_plot2, np.ones(gamma_plot2.shape)*0, color = 'C2', label = "équilibre stable")
+    else:
+        gamma_plot = np.arange(0, 1, .01)
+        ax13.plot(gamma_plot, np.ones(gamma_plot.shape)*0, color = 'C2', label = "équilibre stable")
 
-    # on trace la branche instable en rouge C3
+    # on trace la branche instable en rouge C3 et stable en vert C2
     # il faut recuperer le sommet : la derivee est nulle
-    
     v = P([0, 1]) # définition de monôme
     # def polynôme définissant le lieu des équilibres v^* > 0
     QQ = g_of_v_climChg(v, t=0, params = params_sim, Tslope =0)*(1-v) # la courbe gamma(v), pourrait servir dans le plot du lieu lui-meme
@@ -251,8 +257,10 @@ def plotBifGamma(v0, gamma, T_f,  params, plotTraj):
     pos_deriv0 = deriv0[QQ(deriv0)>0] # la racine correspondant seulement a gamma(v) > 0
 
     v_plot_uns = np.arange(0, pos_deriv0, .01) 
+    v_plot_st = np.arange(pos_deriv0, 1, .01) 
     
-    ax13.plot(QQ(v_plot_uns), v_plot_uns, color = 'C3', label = "équilibre instable" )
+    ax13.plot(QQ(v_plot_uns), v_plot_uns, color = 'C3', label = "équilibre instable" ) # branche instable
+    ax13.plot(QQ(v_plot_st), v_plot_st, color = 'C2')  # branche stable
     ax13.plot(QQ(pos_deriv0), pos_deriv0, 'D', markersize = 5, color = 'C4', label = "bifurcation pli" )
 
     if plotTraj:
