@@ -2,6 +2,7 @@ import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 import streamlit as st
+
 # nickname for Polynomial function
 P = np.polynomial.Polynomial
 
@@ -16,19 +17,21 @@ a = 15
 # general fonctions
 
 # taux de croissance en fonction de la température
-def g_of_T(T, params):
-    g_0, T_opt, beta, T_f, a, gamma = params
+def g_of_T_climChg(T, g_0, T_opt, beta):
     return g_0*(1-((T_opt-T)/beta)**2)
 
 # température en fonction de la végétation
-def T_of_v(v, params):
-    g_0, T_opt, beta, T_f, a, gamma = params
+def T_of_v_climChg(v, T_f, a):
     return T_f + a * (1-v)
 
-# taux de croissance fontion de la végétation
-def g_of_v(v, params):
+# taux de croissance fonction de la végétation (et du temps si scenario accroissement temperature)
+def g_of_v_climChg(v, t, params, Tslope):
     g_0, T_opt, beta, T_f, a, gamma = params
-    return g_of_T(T_of_v(v, params), params)
+    return g_of_T_climChg(T_of_v_climChg(v, T_fChg(t, T_f, Tslope), a), g_0, T_opt, beta)
+
+# Temperature de forcage, qui peut augmenter avec le temps
+def T_fChg(t, T_f, Tslope): 
+    return T_f + Tslope * t
 
 #########################################################
 # partie intégration du modèle / dynamiques
@@ -40,12 +43,15 @@ pas_t = 0.01        # pas de temps de récupération des variables entre t_0 et 
 tspan = np.arange(t_0, t_fin, pas_t)
 long_tspan = np.arange(t_0, 15*t_fin, pas_t)
 
-# définition du modèle Forest Dieback
-def modeleFDB(etat, t, params_sim): 
+#######################################################
+# partie bifurcation vs T_f, scenario d'accroissement de la température
+
+# modèle pouvant prendre en compte l'accroissement de la température
+def modeleFDB_climChg(etat, t, params_sim, Tslope): 
     v = etat              # on recupere l'etat
     gamma = params_sim[-1]     # on récupère les paramètres
-    vdot = g_of_v(v, params_sim)*v*(1-v) - gamma * v # la derivee 
-    return vdot           # on renvoie la derivée calculée
+    vdot = g_of_v_climChg(v, t, params_sim, Tslope)*v*(1-v) - gamma * v # la derivee 
+    return vdot
 
 # fonction pour intégration et plot des dynamiques
 def plotSim(v0, gamma, T_f, params, tspan = tspan):
@@ -53,7 +59,7 @@ def plotSim(v0, gamma, T_f, params, tspan = tspan):
     a = params[4]
     params_sim = np.array([g_0, T_opt, beta, T_f, a, gamma])
     
-    int_FDB = odeint(modeleFDB, v0, tspan, args=(params_sim,), hmax=pas_t)
+    int_FDB = odeint(modeleFDB_climChg, v0, tspan, args=(params_sim, 0), hmax=pas_t)
     
     # figure
     fig1, ax1 = plt.subplots(figsize=(8, 5))  
@@ -106,7 +112,7 @@ def plotSimAll(gamma, T_f, params, tspan = tspan):
 
     # calcul des différentes dynamiques et plot
     for i in range(v0_span.size):
-        int_FDB = odeint(modeleFDB, v0_span[i], tspan, args=(params_sim,), hmax=pas_t)
+        int_FDB = odeint(modeleFDB_climChg, v0_span[i], tspan, args=(params_sim, 0), hmax=pas_t)
         axS.plot(tspan, int_FDB, label=labSimAll[i])
     
     v_roots = getEqs(gamma = gamma, T_f = T_f, params = params_sim)[0]
@@ -144,7 +150,7 @@ def getEqs(gamma, T_f, params):
     
     v = P([0, 1]) # définition de monôme
     # def polynôme définissant les équilibres v^* > 0
-    Q = g_of_v(v, params_sim)*(1-v)-gamma 
+    Q = g_of_v_climChg(v, t=0, params = params_sim, Tslope =0)*(1-v)-gamma 
     
     v_roots = Q.roots()[(np.isreal(Q.roots())) * (Q.roots() < 1) * (Q.roots() > 0) ] # on récupère seulement les racines entre 0 et 1
     y_roots = [gamma/(1-v) for v in v_roots] # ordonnée pour le plot des coursbes définissant les éqs
@@ -162,7 +168,7 @@ def plotEqs(gamma, T_f, params):
     fig0, ax0 = plt.subplots(figsize=(8, 6))  # création d'une figure, et d'un système d'axes
     
     # tracé de g(.) fonction de la température
-    ax0.plot(v_plot, g_of_v(v_plot, params_sim), color='C0', label='taux de croissance') 
+    ax0.plot(v_plot, g_of_v_climChg(v_plot, t=0, params = params_sim, Tslope = 0), color='C0', label='taux de croissance') 
     ax0.plot(v_plot, gamma/(1-v_plot), color='C1', label=r'$\frac{\gamma}{1-v}$') 
 
     # tracé des intersections des courbes = équilibres
@@ -197,7 +203,7 @@ def plotBifGamma(v0, gamma, T_f,  params, plotTraj):
     fig13, ax13 = plt.subplots(figsize=(8, 6))  
 
     # tracé des lieux des équilibres
-    ax13.plot(g_of_v(v_plot, params_sim)*(1-v_plot), v_plot , color='C2')
+    ax13.plot(g_of_v_climChg(v_plot, t=0, params = params_sim, Tslope = 0)*(1-v_plot), v_plot , color='C2')
     ax13.axhline(color = 'C2', label = "équilibre stable")
 
     # on trace la branche instable en rouge C3
@@ -205,7 +211,7 @@ def plotBifGamma(v0, gamma, T_f,  params, plotTraj):
     
     v = P([0, 1]) # définition de monôme
     # def polynôme définissant le lieu des équilibres v^* > 0
-    QQ = g_of_v(v, params_sim)*(1-v) # la courbe gamma(v), pourrait servir dans le plot du lieu lui-meme
+    QQ = g_of_v_climChg(v, t=0, params = params_sim, Tslope =0)*(1-v) # la courbe gamma(v), pourrait servir dans le plot du lieu lui-meme
     deriv0 = QQ.deriv().roots()  # les racines de sa dérivée
     pos_deriv0 = deriv0[QQ(deriv0)>0] # la racine correspondant seulement a gamma(v) > 0
 
@@ -216,7 +222,7 @@ def plotBifGamma(v0, gamma, T_f,  params, plotTraj):
 
     if plotTraj:
         # représentation de la trajectoire
-        int_FDB = odeint(modeleFDB, v0, np.arange(t_0, 5*t_fin, pas_t), args=(params_sim,), hmax=pas_t)
+        int_FDB = odeint(modeleFDB_climChg, v0, long_tspan, args=(params_sim, 0), hmax=pas_t)
         gamma_sim = np.ones(int_FDB.shape) * gamma
         ax13.plot(gamma_sim, int_FDB, color = 'C0', label = "trajectoire")
         ax13.plot(gamma, v0, 'o', color = 'C1', label = "végétation initiale")
@@ -285,7 +291,7 @@ def plotBifTf(v0, gamma, T_f, params, plotTraj, climChange, Tslope = 0):
     # tracé trajectoire pour T_f fixe
     if plotTraj and not climChange:
         # représentation de la trajectoire
-        int_FDB = odeint(modeleFDB, v0, np.arange(t_0, 5*t_fin, pas_t), args=(params_bif_tf,), hmax=pas_t)
+        int_FDB = odeint(modeleFDB_climChg, v0, long_tspan, args=(params_bif_tf, 0), hmax=pas_t)
         T_f_sim = np.ones(int_FDB.shape) * T_f
         ax20.plot(T_f_sim, int_FDB, color = 'C0', label = "trajectoire")
         ax20.plot(T_f, v0, 'o', color = 'C1', label = "végétation initiale")
@@ -309,31 +315,3 @@ def plotBifTf(v0, gamma, T_f, params, plotTraj, climChange, Tslope = 0):
 
     ax20.grid()
     st.pyplot(fig20)
-
-#######################################################
-# partie bifurcation vs T_f, scenario d'accroissement de la température
-
-# fonction d'accroissement de la température de forçage
-# on pourrait reprendre le code en unifiant dès le début et en jouant sur slope = 0 ou positive, ce serait plus econome en code
-# mais ca demande un certain nombre de modifs ; a voir [25/07/2022]
-# I let slope as a global variable
-def T_fChg(t, T_f, Tslope): 
-    return T_f + Tslope * t
-
-def T_of_v_climChg(v, T_f, a):
-    return T_f + a * (1-v)
-
-def g_of_T_climChg(T, g_0, T_opt, beta):
-    return g_0*(1-((T_opt-T)/beta)**2)
-
-# taux de croissance qui dépend du temps
-def g_of_v_climChg(v, t, params, Tslope):
-    g_0, T_opt, beta, T_f, a, gamma = params
-    return g_of_T_climChg(T_of_v_climChg(v, T_fChg(t, T_f, Tslope), a), g_0, T_opt, beta)
-
-# modèle avec accroissement de la température
-def modeleFDB_climChg(etat, t, params_sim, Tslope): 
-    v = etat              # on recupere l'etat
-    gamma = params_sim[-1]     # on récupère les paramètres
-    vdot = g_of_v_climChg(v, t, params_sim, Tslope)*v*(1-v) - gamma * v # la derivee 
-    return vdot
