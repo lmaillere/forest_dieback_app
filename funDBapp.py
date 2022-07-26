@@ -90,7 +90,6 @@ def plotSim(v0, gamma, T_f, params, tspan = tspan):
     if v_roots.size > 0:
         # put a new axes where you want the image to appear
         # (x, y, width, height)
-        # imax1 = fig1.add_axes([.8, (69+384*v_roots[-1])/510-.12, 0.1, 0.1])
         imax1 = fig1.add_axes([.8, (69+384*v_roots[-1])/510+.01, 0.1, 0.1])
         # remove ticks & the box from imax 
         imax1.set_axis_off()
@@ -148,7 +147,24 @@ def plotSimAll(gamma, T_f, params, tspan = tspan):
     if v_roots.size == 0: lab0 = "équilibre stable"
     axS.axhline(0, linestyle = (0, (3, 7)), color = col0, label = lab0) # pour la couleur, faire un if sur la taille de v_roots
     
-    axS.legend(fontsize='10')
+    # test ajout de petites imagettes
+    im1 = image.imread("img/forest.png") 
+    im2 = image.imread("img/desert.png") 
+    
+    if v_roots.size > 0:
+        # put a new axes where you want the image to appear
+        # (x, y, width, height)
+        imax1 = figS.add_axes([.8, (69+384*v_roots[-1])/510+.01, 0.1, 0.1])
+        # remove ticks & the box from imax 
+        imax1.set_axis_off()
+        # print the logo with aspect="equal" to avoid distorting the logo
+        imax1.imshow(im1, aspect="equal")
+    
+    imax2 = figS.add_axes([.82, 0.17, 0.08, 0.08])
+    imax2.set_axis_off()
+    imax2.imshow(im2, aspect="equal")
+
+    axS.legend(fontsize='10', loc = "upper left")
     axS.set_xlabel('temps', fontsize='12')
     axS.set_ylabel('proportion de végétation $v$', fontsize='12')
     figS.suptitle(r'Proportion de végétation $v$', va='top', fontsize='14')
