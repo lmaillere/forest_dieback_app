@@ -278,8 +278,9 @@ def plotBifGamma(v0, gamma, T_f,  params, plotTraj):
        
     vplot_st2 = v_plot_st[QQ(v_plot_st)>0.01]
     # no it does not work as expected yet to put the forest in the right place
-    imax1 = fig13.add_axes([.2, (69+384*vplot_st2[-1])/510, 0.08, 0.08])
-    #imax1.set_axis_off()
+    y_im1 = (69+384*vplot_st2[-1])/510-.09
+    imax1 = fig13.add_axes([.22, y_im1, 0.08, 0.08])
+    imax1.set_axis_off()
     imax1.imshow(im1, aspect="equal")
 
     imax2 = fig13.add_axes([.82, 0.17, 0.07, 0.07])
@@ -363,6 +364,20 @@ def plotBifTf(v0, gamma, T_f, params, plotTraj, climChange, Tslope = 0):
         ax20.plot(T_f, v0, 'o', color = 'C1', label = "végétation initiale")
         ax20.plot(T_f_simChg[-1], int_FDB_climChg[-1], 'o', color = 'C3', label = "végétation finale")
     
+    # imagettes
+    if not climChange:
+        im1 = image.imread("img/forest.png") 
+        y_im1 = (69+384*maxv/2)/510+.1
+        x_im1 = Tf2(v_plot, params = params_bif_tf)[round(len(v_plot)/2)]/(Tplot_max-Tplot_min)-.05
+        imax1 = fig20.add_axes([x_im1, y_im1, 0.07, 0.07])
+        imax1.set_axis_off()
+        imax1.imshow(im1, aspect="equal")
+
+    im2 = image.imread("img/desert.png") 
+    imax2 = fig20.add_axes([.82, 0.17, 0.07, 0.07])
+    imax2.set_axis_off()
+    imax2.imshow(im2, aspect="equal")
+
     ax20.legend(fontsize='10', loc = "upper left")
     ax20.set_xlabel('$T_f$', fontsize='12')
     ax20.set_ylabel('proportion de végétation $v$', fontsize='12')
