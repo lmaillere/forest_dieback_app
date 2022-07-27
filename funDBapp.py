@@ -75,13 +75,13 @@ def plotSim(v0, gamma, T_f, params, tspan = tspan):
     mylabels = ['équilibre instable', 'équilibre stable']
 
     for i in range(v_roots.size):
-        ax1.axhline(v_roots[-1-i], color = mycolors[-1-i], label = mylabels[-1-i], linestyle = (0, (3, 7))) #  latest elements of v_roots is plot in C0
+        ax1.plot(tspan, np.ones(tspan.shape)*v_roots[-1-i], color = mycolors[-1-i], label = mylabels[-1-i], linestyle = (0, (3, 7)))
 
     # tracé de l'équilibre nul
     col0, lab0 = 'C2', ''
     if v_roots.size == 1: col0, lab0 ='C3', "équilibre instable" 
     if v_roots.size == 0: lab0 = "équilibre stable"
-    ax1.axhline(0, linestyle = (0, (3, 7)), color = col0, label = lab0) # pour la couleur, faire un if sur la taille de v_roots
+    ax1.plot(tspan, np.ones(tspan.shape)*0, linestyle = (0, (3, 7)), color = col0, label = lab0)
     
     # ajout de petites imagettes
     im1 = image.imread("img/forest.png") 
@@ -90,13 +90,13 @@ def plotSim(v0, gamma, T_f, params, tspan = tspan):
     if v_roots.size > 0:
         # put a new axes where you want the image to appear
         # (x, y, width, height)
-        imax1 = fig1.add_axes([.8, (69+384*v_roots[-1])/510+.01, 0.1, 0.1])
+        imax1 = fig1.add_axes([.77, (69+384*v_roots[-1])/510+.01, 0.1, 0.1])
         # remove ticks & the box from imax 
         imax1.set_axis_off()
         # print the logo with aspect="equal" to avoid distorting the logo
         imax1.imshow(im1, aspect="equal")
     
-    imax2 = fig1.add_axes([.82, 0.17, 0.08, 0.08])
+    imax2 = fig1.add_axes([.78, 0.17, 0.08, 0.08])
     imax2.set_axis_off()
     imax2.imshow(im2, aspect="equal")
 
@@ -139,13 +139,13 @@ def plotSimAll(gamma, T_f, params, tspan = tspan):
     mylabels = ['équilibre instable', 'équilibre stable']
 
     for i in range(v_roots.size):
-        axS.axhline(v_roots[-1-i], color = mycolors[-1-i], label = mylabels[-1-i], linestyle = (0, (3, 7))) #  latest elements of v_roots is plot in C0
+        axS.plot(tspan, np.ones(tspan.shape)*v_roots[-1-i], color = mycolors[-1-i], label = mylabels[-1-i], linestyle = (0, (3, 7)))
 
     # tracé de l'équilibre nul
     col0, lab0 = 'C2', ''
     if v_roots.size == 1: col0, lab0 ='C3', "équilibre instable" 
     if v_roots.size == 0: lab0 = "équilibre stable"
-    axS.axhline(0, linestyle = (0, (3, 7)), color = col0, label = lab0) # pour la couleur, faire un if sur la taille de v_roots
+    axS.plot(tspan, np.ones(tspan.shape)*0, linestyle = (0, (3, 7)), color = col0, label = lab0)
     
     # test ajout de petites imagettes
     im1 = image.imread("img/forest.png") 
@@ -154,13 +154,13 @@ def plotSimAll(gamma, T_f, params, tspan = tspan):
     if v_roots.size > 0:
         # put a new axes where you want the image to appear
         # (x, y, width, height)
-        imax1 = figS.add_axes([.8, (69+384*v_roots[-1])/510+.01, 0.1, 0.1])
+        imax1 = figS.add_axes([.77, (69+384*v_roots[-1])/510+.01, 0.1, 0.1])
         # remove ticks & the box from imax 
         imax1.set_axis_off()
         # print the logo with aspect="equal" to avoid distorting the logo
         imax1.imshow(im1, aspect="equal")
     
-    imax2 = figS.add_axes([.82, 0.17, 0.08, 0.08])
+    imax2 = figS.add_axes([.78, 0.17, 0.08, 0.08])
     imax2.set_axis_off()
     imax2.imshow(im2, aspect="equal")
 
@@ -256,11 +256,11 @@ def plotBifGamma(v0, gamma, T_f,  params, plotTraj):
     deriv0 = QQ.deriv().roots()  # les racines de sa dérivée
     pos_deriv0 = deriv0[QQ(deriv0)>0] # la racine correspondant seulement a gamma(v) > 0
 
-    v_plot_uns = np.arange(0, pos_deriv0, .01) 
-    v_plot_st = np.arange(pos_deriv0, 1, .01) 
+    v_plot_uns = np.arange(0, pos_deriv0, .001) 
+    v_plot_st = np.arange(pos_deriv0, 1, .001) 
     
-    ax13.plot(QQ(v_plot_uns), v_plot_uns, color = 'C3', label = "équilibre instable" ) # branche instable
-    ax13.plot(QQ(v_plot_st), v_plot_st, color = 'C2')  # branche stable
+    ax13.plot(QQ(v_plot_uns)[QQ(v_plot_uns)>0], v_plot_uns[QQ(v_plot_uns)>0], color = 'C3', label = "équilibre instable" ) # branche instable
+    ax13.plot(QQ(v_plot_st)[QQ(v_plot_st)>0.], v_plot_st[QQ(v_plot_st)>0.], color = 'C2')  # branche stable
     ax13.plot(QQ(pos_deriv0), pos_deriv0, 'D', markersize = 5, color = 'C4', label = "bifurcation pli" )
 
     if plotTraj:
@@ -283,7 +283,7 @@ def plotBifGamma(v0, gamma, T_f,  params, plotTraj):
     imax1.set_axis_off()
     imax1.imshow(im1, aspect="equal")
 
-    imax2 = fig13.add_axes([.82, 0.17, 0.07, 0.07])
+    imax2 = fig13.add_axes([.79, 0.17, 0.07, 0.07])
     imax2.set_axis_off()
     imax2.imshow(im2, aspect="equal")
 
@@ -293,7 +293,7 @@ def plotBifGamma(v0, gamma, T_f,  params, plotTraj):
     fig13.suptitle(r'Proportion de végétation $v$', va='top', fontsize='14')
 
     # modification éventuelle des bornes des axes
-    ax13.set_xlim(left=0, right=1)
+    #ax13.set_xlim(left=0, right=1)
 
     # ajout d'une grille
     ax13.grid()
@@ -369,12 +369,12 @@ def plotBifTf(v0, gamma, T_f, params, plotTraj, climChange, Tslope = 0):
         im1 = image.imread("img/forest.png") 
         y_im1 = (69+384*maxv/2)/510+.1
         x_im1 = Tf2(v_plot, params = params_bif_tf)[round(len(v_plot)/2)]/(Tplot_max-Tplot_min)-.05
-        imax1 = fig20.add_axes([x_im1, y_im1, 0.07, 0.07])
+        imax1 = fig20.add_axes([x_im1, y_im1, 0.08, 0.08])
         imax1.set_axis_off()
         imax1.imshow(im1, aspect="equal")
 
     im2 = image.imread("img/desert.png") 
-    imax2 = fig20.add_axes([.82, 0.17, 0.07, 0.07])
+    imax2 = fig20.add_axes([.78, 0.17, 0.07, 0.07])
     imax2.set_axis_off()
     imax2.imshow(im2, aspect="equal")
 
