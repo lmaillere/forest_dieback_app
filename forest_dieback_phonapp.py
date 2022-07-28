@@ -24,7 +24,7 @@ T_f =  st.slider(' Température de forçage', min_value=16., max_value=30., valu
 
 params_sim = np.array([g_0, T_opt, beta, T_f, a, gamma])
 
-plotChoice = st.selectbox("Que voulez vous tracer ?",
+plotChoice = st.radio("Que voulez vous tracer ?",
                 ("Dynamiques", "Synthèse des dynamiques", "Équilibres", "Bifurcations / perturbations", "Bifurcations / température"),
                 index=0
                 )
