@@ -16,13 +16,16 @@ st.markdown(" - $v$ est la proportion de végétation dans l'environnement")
 st.markdown("- $g(.)$ le taux de croissance de la végétation")
 st.markdown("- $\gamma$ un taux de perturbation")
 
-st.markdown("### Calculs et simulations")
+st.markdown("### Paramètres")
 
 v0 = st.slider(' Proportion de végétation initiale', min_value=0., max_value=1., value = .3, step=0.05)  
 gamma = st.slider(' Taux de perturbation', min_value=.1, max_value=.7, value = .3, step=0.05) 
 T_f =  st.slider(' Température de forçage', min_value=16., max_value=30., value = 22., step=0.5)  
 
 params_sim = np.array([g_0, T_opt, beta, T_f, a, gamma])
+
+
+st.markdown("### Calculs et simulations")
 
 plotChoice = st.radio("Que voulez vous tracer ?",
                 ("Dynamiques", "Synthèse des dynamiques", "Équilibres", "Bifurcations / perturbations", "Bifurcations / température"),
