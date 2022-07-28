@@ -10,7 +10,7 @@ with col2:
 
 st.markdown("## Dépérissement des forêts et points de basculement")
 
-st.markdown("### D'après le modèle de [Ritchie *et al.* 2021](https://www.nature.com/articles/s41586-021-03263-2)")
+st.markdown("### Modèle de [Ritchie *et al.* 2021](https://www.nature.com/articles/s41586-021-03263-2)")
 st.markdown("$$ \dot v = g(.) v (1-v) - \gamma v $$")
 st.markdown(" - $v$ est la proportion de végétation dans l'environnement")
 st.markdown("- $g(.)$ le taux de croissance de la végétation")
