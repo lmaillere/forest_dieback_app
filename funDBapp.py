@@ -55,6 +55,7 @@ def modeleFDB_climChg(etat, t, params_sim, Tslope):
     return vdot
 
 # fonction pour intégration et plot des dynamiques
+@st.experimental_singleton
 def plotSim(v0, gamma, T_f, params, tspan = tspan):
     g_0, T_opt, beta = params[0:3]
     a = params[4]
@@ -107,8 +108,8 @@ def plotSim(v0, gamma, T_f, params, tspan = tspan):
     ax1.set_ylim(bottom = -.05, top=1)
     ax1.grid()
 
-    # show the figure in the plot
-    st.pyplot(fig1)
+    # returns the figure object
+    return fig1
     
 # fonction pour intégration et plot de toutes les dynamiques
 @st.experimental_singleton
@@ -172,6 +173,7 @@ def plotSimAll(gamma, T_f, params, tspan = tspan):
     axS.set_ylim(bottom = -.05, top=1)
     axS.grid()
 
+    # returns the figure object
     return figS
 
 ##############################################################
@@ -194,6 +196,7 @@ def getEqs(gamma, T_f, params):
     return v_roots, y_roots
 
 # plot les courbes définissant les eq positifs et plotte les équilibres positifs
+@st.experimental_singleton
 def plotEqs(gamma, T_f, params):
     g_0, T_opt, beta = params[0:3]
     a = params[4]
@@ -223,12 +226,12 @@ def plotEqs(gamma, T_f, params):
     ax0.grid()
     ax0.set_ylim(bottom=-.1, top=1.5)
 
-    # show the figure in the plot
-    st.pyplot(fig0)
+    # returns the figure object
+    return fig0
 
 #################################################################
 # partie bifurcation vs gamma
-
+@st.experimental_singleton
 def plotBifGamma(v0, gamma, T_f,  params, plotTraj):
     g_0, T_opt, beta = params[0:3]
     a = params[4]
@@ -298,7 +301,9 @@ def plotBifGamma(v0, gamma, T_f,  params, plotTraj):
 
     # ajout d'une grille
     ax13.grid()
-    st.pyplot(fig13)
+    
+    # returns the figure object
+    return fig13
 
 ################################################################
 # partie bifurcation vs T_f
@@ -310,6 +315,8 @@ def Tf2(v, params):
     g_0, T_opt, beta, T_f, a, gamma = params
     return T_opt+a*(v-1)-beta*np.sqrt(1-gamma/(g_0*(1-v)))
 
+# bifurcations vs T
+@st.experimental_singleton
 def plotBifTf(v0, gamma, T_f, params, plotTraj, climChange, Tslope = 0):
     g_0, T_opt, beta = params[0:3]
     a = params[4]
@@ -387,5 +394,5 @@ def plotBifTf(v0, gamma, T_f, params, plotTraj, climChange, Tslope = 0):
     # modification éventuelle des bornes des axes
     ax20.set_ylim(bottom= -0.05, top=1)
 
-    ax20.grid()
-    st.pyplot(fig20)
+    # returns the figure object
+    return fig20

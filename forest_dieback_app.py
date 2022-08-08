@@ -66,13 +66,17 @@ with col32:
 
 with col33:
     if plotChoice == "Dynamiques":
-        plotSim(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim)
+        fig_sim = plotSim(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim)
+        st.pyplot(fig_sim)
     elif plotChoice == "Synthèse des dynamiques":
         fig_all = plotSimAll(gamma = gamma, T_f = T_f, params = params_sim)
         st.pyplot(fig_all)
     elif plotChoice == "Équilibres":
-        plotEqs(gamma = gamma, T_f = T_f, params = params_sim)
+        fig_eqs = plotEqs(gamma = gamma, T_f = T_f, params = params_sim)
+        st.pyplot(fig_eqs)
     elif plotChoice == "Bifurcations / perturbations":
-        plotBifGamma(v0 =v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj)
+        fig_gam = plotBifGamma(v0 =v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj)
+        st.pyplot(fig_gam)
     elif plotChoice == "Bifurcations / température":
-        plotBifTf(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj, climChange = climChange, Tslope = Tslope)
+        fig_T = plotBifTf(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj, climChange = climChange, Tslope = Tslope)
+        st.pyplot(fig_T)
