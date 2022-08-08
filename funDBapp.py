@@ -111,7 +111,6 @@ def plotSim(v0, gamma, T_f, params, tspan = tspan):
     st.pyplot(fig1)
     
 # fonction pour intégration et plot de toutes les dynamiques
-@st.cache(suppress_st_warning=True) 
 def plotSimAll(gamma, T_f, params, tspan = tspan):
     g_0, T_opt, beta = params[0:3]
     a = params[4]
@@ -172,8 +171,7 @@ def plotSimAll(gamma, T_f, params, tspan = tspan):
     axS.set_ylim(bottom = -.05, top=1)
     axS.grid()
 
-    #st.pyplot(figS) # just a try
-    return figS
+    st.pyplot(figS)
 
 ##############################################################
 # partie equilibres
