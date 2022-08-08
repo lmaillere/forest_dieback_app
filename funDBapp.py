@@ -393,6 +393,7 @@ def plotBifTf(v0, gamma, T_f, params, plotTraj, climChange, Tslope = 0):
 
     # modification éventuelle des bornes des axes
     ax20.set_ylim(bottom= -0.05, top=1)
+    ax20.grid()
 
     # returns the figure object
     return fig20
