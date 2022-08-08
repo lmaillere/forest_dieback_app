@@ -173,7 +173,7 @@ def plotSimAll(gamma, T_f, params, tspan = tspan):
     axS.grid()
 
     #st.pyplot(figS) # just a try
-    figS
+    return figS
 
 ##############################################################
 # partie equilibres
