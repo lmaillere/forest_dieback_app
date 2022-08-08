@@ -111,6 +111,7 @@ def plotSim(v0, gamma, T_f, params, tspan = tspan):
     st.pyplot(fig1)
     
 # fonction pour intégration et plot de toutes les dynamiques
+@st.cache
 def plotSimAll(gamma, T_f, params, tspan = tspan):
     g_0, T_opt, beta = params[0:3]
     a = params[4]
