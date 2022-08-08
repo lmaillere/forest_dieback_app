@@ -68,7 +68,6 @@ with col33:
     if plotChoice == "Dynamiques":
         plotSim(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim)
     elif plotChoice == "Synthèse des dynamiques":
-        #plotSimAll(gamma = gamma, T_f = T_f, params = params_sim)
         fig_all = plotSimAll(gamma = gamma, T_f = T_f, params = params_sim)
         st.pyplot(fig_all)
     elif plotChoice == "Équilibres":

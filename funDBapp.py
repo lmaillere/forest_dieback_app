@@ -172,7 +172,6 @@ def plotSimAll(gamma, T_f, params, tspan = tspan):
     axS.set_ylim(bottom = -.05, top=1)
     axS.grid()
 
-    #st.pyplot(figS)
     return figS
 
 ##############################################################
