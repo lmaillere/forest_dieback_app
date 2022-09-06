@@ -35,21 +35,13 @@ with col2:
         st.markdown("### Calculs et simulations")
 
         plotChoice = st.radio("Que voulez vous tracer ?",
-                        ("Dynamiques", "Synthèse des dynamiques", "Équilibres", "Bifurcations / perturbations", "Bifurcations / température"),
-                        index=0
+                        ("Dynamiques", "Synthèse des dynamiques", "Équilibres", "Bifurcations / perturbations", "Bifurcations / température", "Simuler une augmentation de la température ?"), index=0
                         )
-
-        if plotChoice == "Bifurcations / température" or plotChoice == "Bifurcations / perturbations":
-                plotTraj = st.checkbox("Tracer la trajectoire")
             
-        if plotChoice == "Bifurcations / température":
-            climChange = st.checkbox("Simuler une augmentation de la température ?")
-            Tslope = st.slider("Vitesse d'accroissement de la Température",  min_value=0., max_value=.15, value = .08, step=0.01, disabled = not climChange)  
-
         # setting parameters        
         st.markdown("#### Paramètres")
     
-        if plotChoice == "Dynamiques" or plotChoice == "Bifurcations / température" or plotChoice == "Bifurcations / perturbations":
+        if plotChoice == "Dynamiques" or plotChoice == "Bifurcations / température" or plotChoice == "Bifurcations / perturbations" or plotChoice == "Simuler une augmentation de la température ?":
             v0 = st.slider(' Proportion de végétation initiale', min_value=0., max_value=1., value = .3, step=0.05)  
     
         gamma = st.slider(' Taux de déforestation', min_value=.1, max_value=.7, value = .3, step=0.05) 
@@ -57,9 +49,12 @@ with col2:
 
         params_sim = np.array([g_0, T_opt, beta, T_f, a, gamma])
 
-
         # plot of the figs
         st.markdown("#### Simulations")
+
+        if plotChoice == "Bifurcations / température" or plotChoice == "Bifurcations / perturbations":
+            plotTraj = st.checkbox("Tracer la trajectoire")
+            Tslope = 0.
 
         if plotChoice == "Dynamiques":
             fig_sim = plotSim(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim)
@@ -74,5 +69,13 @@ with col2:
             fig_gam = plotBifGamma(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj)
             st.pyplot(fig_gam)
         elif plotChoice == "Bifurcations / température":
+            climChange = False
             fig_T = plotBifTf(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj, climChange = climChange, Tslope = Tslope)
             st.pyplot(fig_T)
+        elif plotChoice == "Simuler une augmentation de la température ?":
+            climChange = True
+            plotTraj = True
+            Tslope = st.slider("Vitesse d'accroissement de la Température",  min_value=0., max_value=.15, value = .02, step=0.01)
+            fig_climChange = plotBifTf(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj, 
+                                       climChange = climChange, Tslope = Tslope)
+            st.pyplot(fig_climChange)
