@@ -36,6 +36,7 @@ with col13:
 with col12:
     st.markdown("### Calculs et simulations")
     st.markdown("Saisissez les paramètres")
+    
 col21, col22, col23, col24 = st.columns([3, 7, 7, 7], gap = "large")
 with col22:
     v0 = st.slider(' Proportion de végétation initiale', min_value=0., max_value=1., value = .3, step=0.05)  
