@@ -61,7 +61,7 @@ with col24:
 # encapsulation
 params_sim = np.array([g_0, T_opt, beta, T_f, a, gamma])
 
-col31, col32, col3b, col33, col34 = st.columns([3.5, 5.5, .5, 12, 2.5],gap = "large")
+col31, col32, col33, col34 = st.columns([3.5, 7.5, 12, 2.5],gap = "large")
 with col32:
     plotChoice = st.selectbox("Que voulez vous tracer ?",
                 ("Dynamiques", "Synthèse des dynamiques", "Équilibres", "Bifurcations / perturbations", "Bifurcations / température"),
@@ -70,10 +70,14 @@ with col32:
     
     if plotChoice == "Bifurcations / température" or plotChoice == "Bifurcations / perturbations":
         plotTraj = st.checkbox("Tracer la trajectoire")
-    
+        if plotTraj:
+            fig_sim = plotSim(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim)
+            st.pyplot(fig_sim)
+    # have to move the cimate change scenario in another cell of the menu
     if plotChoice == "Bifurcations / température":
         climChange = st.checkbox("Simuler une augmentation de la température ?")
         Tslope = st.slider("Vitesse d'accroissement de la Température",  min_value=0., max_value=.15, value = .08, step=0.01, disabled = not climChange)  
+
 
 
 with col33:
