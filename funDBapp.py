@@ -9,10 +9,11 @@ P = np.polynomial.Polynomial
 
 #######################################
 # parameters
-g_0 = 1
-T_opt = 28
-beta = 7
-a = 15
+g_0 = 1.
+T_opt = 26.
+beta = 7.
+a = 12.
+T_fbase = 22.
 
 #########################################################
 # general fonctions
@@ -33,6 +34,37 @@ def g_of_v_climChg(v, t, params, Tslope):
 # Temperature de forcage, qui peut augmenter avec le temps
 def T_fChg(t, T_f, Tslope): 
     return T_f + Tslope * t
+
+#########################################################
+# functions plotting g(T) and T(v)
+def plotg(g_0, T_opt, beta):
+    fig_g, ax_g = plt.subplots(figsize=(5, 3))
+
+    Tplot = np.arange(T_opt - 8., T_opt + 8., .1)
+
+    ax_g.plot(Tplot, g_of_T_climChg(Tplot, g_0, T_opt, beta))
+    
+    ax_g.set_xlabel("température $T$")
+    ax_g.set_ylabel("taux de croissance $g(T)$")
+
+    ax_g.grid()
+
+    fig_g.savefig("img/fig_g.png",bbox_inches='tight')
+
+def plotTofv(T_f, a):
+    fig_T, ax_T = plt.subplots(figsize=(5, 3))
+
+    v_plotT = np.arange(0, 1.01, .01)
+
+    ax_T.plot(v_plotT, T_of_v_climChg(v_plotT, T_f, a))
+
+    ax_T.set_ylabel("température $T$")
+    ax_T.set_xlabel("proportion de végétation $v$")
+
+    ax_T.grid()
+
+    fig_T.savefig("img/fig_T.png",bbox_inches='tight')
+    
 
 #########################################################
 # partie intégration du modèle / dynamiques
