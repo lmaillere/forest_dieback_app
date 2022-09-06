@@ -35,7 +35,7 @@ with col2:
         st.markdown("### Calculs et simulations")
 
         plotChoice = st.radio("Que voulez vous tracer ?",
-                        ("Dynamiques", "Synthèse des dynamiques", "Équilibres", "Bifurcations / perturbations", "Bifurcations / température", "Simuler une augmentation de la température ?"), index=0
+                        ("Dynamiques", "Synthèse des dynamiques", "Bifurcations / perturbations", "Bifurcations / température", "Simuler une augmentation de la température ?"), index=0
                         )
             
         # setting parameters        
@@ -61,10 +61,7 @@ with col2:
             st.pyplot(fig_sim)
         elif plotChoice == "Synthèse des dynamiques":
             fig_all = plotSimAll(gamma = gamma, T_f = T_f, params = params_sim)
-            st.pyplot(fig_all)
-        elif plotChoice == "Équilibres":
-            fig_eqs = plotEqs(gamma = gamma, T_f = T_f, params = params_sim)
-            st.pyplot(fig_eqs)
+            st.pyplot(fig_all)    
         elif plotChoice == "Bifurcations / perturbations":
             fig_gam = plotBifGamma(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj)
             st.pyplot(fig_gam)
