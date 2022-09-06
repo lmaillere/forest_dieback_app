@@ -20,7 +20,7 @@ with col2:
         # st.markdown("- $\gamma$ un taux de perturbation")
         st.markdown(" - $v$ est la proportion de végétation dans l'environnement")
         st.markdown("- $g(.)$ le taux de croissance de la végétation")
-        st.markdown("- $\gamma$ un taux de perturbation")
+        st.markdown("- $\gamma$ un taux de déforestation")
         st.markdown("Le modèle s'écrit :")
         st.markdown("$$ \dot v = g(.) v (1-v) - \gamma v $$")
         st.markdown("##")
@@ -28,7 +28,7 @@ with col2:
         st.markdown(r"$$ g(T) = g_0 \left[1-\left(\frac{T_{opt}-T}{\beta}\right)^2\right]$$")
         st.markdown("Par ailleurs, la température locale $T$ décroît avec la végétation :")
         st.markdown("$$ T = T_f + a (1-v) $$")
-        st.markdown(r"Les paramètres $a$ et $\beta$ caractérisent la sensibilité de $g(.)$ et $T$ à la température locale et à la végétation, respectivement. $T_f$, la température de forçage est la température de l'environnement lorsqu'il est recouvert de forêts")
+        st.markdown(r"Les paramètres $a$ et $\beta$ caractérisent la sensibilité de $g(.)$ et $T$ à la température locale et à la végétation, respectivement. $T_f$ est la température de l'environnement à l'ombre.")
 
     with tab2:
         st.markdown("### Paramètres")
