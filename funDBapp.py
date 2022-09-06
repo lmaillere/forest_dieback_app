@@ -96,7 +96,7 @@ def plotSim(v0, gamma, T_f, params, tspan = tspan):
     int_FDB = odeint(modeleFDB_climChg, v0, tspan, args=(params_sim, 0), hmax=pas_t)
     
     # figure
-    fig1, ax1 = plt.subplots(figsize=(8, 5))  
+    fig1, ax1 = plt.subplots(figsize=(8, 6))  
 
     # tracé des simulations par rapport au temps
     ax1.plot(tspan, int_FDB, color='C0', label='proportion de végétation')
@@ -156,7 +156,7 @@ def plotSimAll(gamma, T_f, params, tspan = tspan):
     labSimAll = np.delete(labSimAll, 0)
 
     # figure
-    figS, axS = plt.subplots(figsize=(8, 5))  
+    figS, axS = plt.subplots(figsize=(8, 6))  
     
     # redéfinition du cycle des couleurs pour un dégradé de bleu
     colorSimAll = plt.cm.Blues(np.linspace(.3, .8, v0_span.size))

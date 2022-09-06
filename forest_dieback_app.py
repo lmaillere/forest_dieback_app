@@ -64,19 +64,18 @@ params_sim = np.array([g_0, T_opt, beta, T_f, a, gamma])
 col31, col32, col33, col34 = st.columns([3.5, 7.5, 12, 2.5],gap = "large")
 with col32:
     plotChoice = st.selectbox("Que voulez vous tracer ?",
-                ("Dynamiques", "Synthèse des dynamiques", "Équilibres", "Bifurcations / perturbations", "Bifurcations / température"),
-                index=0
-                )
+                ("Dynamiques", "Synthèse des dynamiques", "Équilibres", "Bifurcations / perturbations", "Bifurcations / température", "Simuler une augmentation de la température ?"), index=0)
     
     if plotChoice == "Bifurcations / température" or plotChoice == "Bifurcations / perturbations":
+        Tslope = 0
         plotTraj = st.checkbox("Tracer la trajectoire")
         if plotTraj:
             fig_sim = plotSim(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim)
             st.pyplot(fig_sim)
-    # have to move the cimate change scenario in another cell of the menu
-    if plotChoice == "Bifurcations / température":
-        climChange = st.checkbox("Simuler une augmentation de la température ?")
-        Tslope = st.slider("Vitesse d'accroissement de la Température",  min_value=0., max_value=.15, value = .08, step=0.01, disabled = not climChange)  
+    
+    
+    if plotChoice == "Simuler une augmentation de la température ?":
+        Tslope = st.slider("Vitesse d'accroissement de la Température",  min_value=0., max_value=.15, value = .08, step=0.01)  
 
 
 
@@ -94,5 +93,11 @@ with col33:
         fig_gam = plotBifGamma(v0 =v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj)
         st.pyplot(fig_gam)
     elif plotChoice == "Bifurcations / température":
+        climChange = False
         fig_T = plotBifTf(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj, climChange = climChange, Tslope = Tslope)
         st.pyplot(fig_T)
+    elif plotChoice == "Simuler une augmentation de la température ?":
+        climChange = True
+        plotTraj = True
+        fig_TclimChg = plotBifTf(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj, climChange = climChange, Tslope = Tslope)
+        st.pyplot(fig_TclimChg)
