@@ -31,15 +31,7 @@ with col2:
         st.markdown(r"Les paramètres $a$ et $\beta$ caractérisent la sensibilité de $g(.)$ et $T$ à la température locale et à la végétation, respectivement. $T_f$ est la température de l'environnement à l'ombre.")
 
     with tab2:
-        st.markdown("### Paramètres")
-
-        v0 = st.slider(' Proportion de végétation initiale', min_value=0., max_value=1., value = .3, step=0.05)  
-        gamma = st.slider(' Taux de déforestation', min_value=.1, max_value=.7, value = .3, step=0.05) 
-        T_f =  st.slider(' Température de l\'environnement à l\'ombre', min_value=16., max_value=30., value = 22., step=0.5)  
-
-        params_sim = np.array([g_0, T_opt, beta, T_f, a, gamma])
-
-
+        
         st.markdown("### Calculs et simulations")
 
         plotChoice = st.radio("Que voulez vous tracer ?",
@@ -54,7 +46,21 @@ with col2:
             climChange = st.checkbox("Simuler une augmentation de la température ?")
             Tslope = st.slider("Vitesse d'accroissement de la Température",  min_value=0., max_value=.15, value = .08, step=0.01, disabled = not climChange)  
 
+        # setting parameters        
+        st.markdown("#### Paramètres")
+    
+        if plotChoice == "Dynamiques" or plotChoice == "Bifurcations / température" or plotChoice == "Bifurcations / perturbations":
+            v0 = st.slider(' Proportion de végétation initiale', min_value=0., max_value=1., value = .3, step=0.05)  
+    
+        gamma = st.slider(' Taux de déforestation', min_value=.1, max_value=.7, value = .3, step=0.05) 
+        T_f =  st.slider(' Température de l\'environnement à l\'ombre', min_value=16., max_value=30., value = 22., step=0.5)  
+
+        params_sim = np.array([g_0, T_opt, beta, T_f, a, gamma])
+
+
         # plot of the figs
+        st.markdown("#### Simulations")
+
         if plotChoice == "Dynamiques":
             fig_sim = plotSim(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim)
             st.pyplot(fig_sim)
@@ -65,7 +71,7 @@ with col2:
             fig_eqs = plotEqs(gamma = gamma, T_f = T_f, params = params_sim)
             st.pyplot(fig_eqs)
         elif plotChoice == "Bifurcations / perturbations":
-            fig_gam = plotBifGamma(v0 =v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj)
+            fig_gam = plotBifGamma(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj)
             st.pyplot(fig_gam)
         elif plotChoice == "Bifurcations / température":
             fig_T = plotBifTf(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj, climChange = climChange, Tslope = Tslope)
