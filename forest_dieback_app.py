@@ -76,6 +76,9 @@ with col32:
     
     if plotChoice == "Simuler une augmentation de la température ?":
         Tslope = st.slider("Vitesse d'accroissement de la Température",  min_value=0., max_value=.15, value = .08, step=0.01)  
+        # il manque la sim contre le temps ici
+
+        # et il faut faire une multipage app
 
 
 
