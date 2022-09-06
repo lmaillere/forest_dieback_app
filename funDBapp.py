@@ -63,7 +63,7 @@ def plotTofv(T_f, a):
 
     ax_T.grid()
 
-    fig_T.savefig("img/fig_T.png",bbox_inches='tight')
+    fig_T.savefig("img/fig_Tofv.png",bbox_inches='tight')
     
 
 #########################################################

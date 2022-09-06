@@ -42,7 +42,7 @@ with col121:
 with col131:
     st.markdown("#### Dépendance de $T$ en fonction de $v$")
     plotTofv(T_fbase, a)
-    st.image("img/fig_T.png")
+    st.image("img/fig_Tofv.png")
 
 with col121:
     st.markdown("### Calculs et simulations")
