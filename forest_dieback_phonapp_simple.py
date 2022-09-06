@@ -32,8 +32,6 @@ with col2:
 
     with tab2:
 
-
-
         st.markdown("### Calculs et simulations")
 
         plotChoice = st.radio("Que voulez vous tracer ?",
