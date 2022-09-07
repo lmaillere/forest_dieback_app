@@ -3,7 +3,9 @@ import streamlit as st
 
 from utils.funDBapp import *
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide", page_title = "Introduction")
+
+
 
 col1, col2, col3 = st.columns([3, 5, 15], gap = "large")
 

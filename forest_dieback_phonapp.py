@@ -1,7 +1,7 @@
 import numpy as np
 import streamlit as st
 
-from funDBapp import *
+from utils.funDBapp import *
 
 col1, col2, col3 = st.columns([0.5, 5, 1])
 
