@@ -15,7 +15,8 @@ with col3:
     st.markdown("$~$")
     st.markdown("# Dépérissement des forêts et points de basculement")
 
-col11, col12, col13 = st.columns([3,11, 10],gap = "large")
+
+col111, col121, col131 = st.columns([3,11, 10],gap = "large")
 
 with col121:
     st.markdown("### Calculs et simulations")
