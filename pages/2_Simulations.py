@@ -16,13 +16,13 @@ with col3:
     st.markdown("# Dépérissement des forêts et points de basculement")
 
 
-col111, col121, col131 = st.columns([3,11, 10],gap = "large")
+col121, col131 = st.columns([11, 10],gap = "large")
 
 with col121:
     st.markdown("### Calculs et simulations")
     st.markdown("Saisissez les paramètres")
 
-col21, col22, col23, col24 = st.columns([3, 7, 7, 7], gap = "large")
+col22, col23, col24 = st.columns([7, 7, 7], gap = "large")
 with col22:
     v0 = st.slider(' Proportion de végétation initiale', min_value=0., max_value=1., value = .3, step=0.05, disabled = False)  
 
@@ -35,7 +35,7 @@ with col24:
 # encapsulation
 params_sim = np.array([g_0, T_opt, beta, T_f, a, gamma])
 
-col31, col32, col33, col34 = st.columns([3.5, 7.5, 12, 2.5],gap = "large")
+col32, col33 = st.columns([10, 15],gap = "large")
 with col32:
     plotChoice = st.selectbox("Que voulez vous tracer ?",
                 ("Dynamiques", "Synthèse des dynamiques", "Équilibres", "Bifurcations / perturbations", "Bifurcations / température", "Simuler une augmentation de la température ?"), index=0)
