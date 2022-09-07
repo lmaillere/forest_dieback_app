@@ -429,3 +429,27 @@ def plotBifTf(v0, gamma, T_f, params, plotTraj, climChange, Tslope = 0):
 
     # returns the figure object
     return fig20
+
+
+# trajectoire contre le temps climate change
+@st.experimental_singleton
+def plotSimClimchg(v0, gamma, T_f, params, plotTraj, climChange, Tslope = 0):
+    g_0, T_opt, beta = params[0:3]
+    a = params[4]
+    params_bif_tf = np.array([g_0, T_opt, beta, T_f, a, gamma])
+
+    int_FDB_climChg = odeint(modeleFDB_climChg, v0, long_tspan, args=(params_bif_tf, Tslope), hmax=pas_t)
+    
+    fig21, ax21 = plt.subplots(figsize=(8, 6))  
+
+    ax21.plot(long_tspan, int_FDB_climChg, color = 'C1', label = "proportion de végétation")
+    ax21.set_xlabel("temps", fontsize='12')
+    ax21.set_ylabel("proportion de végétation $v$", fontsize='12')
+    #fig21.suptitle(r'Proportion de végétation $v$', va='top', fontsize='14')
+    ax21.set_ylim(bottom = -.05, top=1)
+    ax21.legend(fontsize='10', loc = "upper right")
+
+    ax21.grid()
+
+    return fig21
+    
