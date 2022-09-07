@@ -78,10 +78,6 @@ with col32:
         Tslope = st.slider("Vitesse d'accroissement de la Température",  min_value=0., max_value=.15, value = .08, step=0.01)  
         # il manque la sim contre le temps ici
 
-        # et il faut faire une multipage app
-
-
-
 with col33:
     if plotChoice == "Dynamiques":
         fig_sim = plotSim(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim)

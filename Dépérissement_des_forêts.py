@@ -5,9 +5,9 @@ from utils.funDBapp import *
 
 st.set_page_config(layout="wide", page_title = "Introduction")
 
+st.sidebar.header("Introduction")
 
-
-col1, col2, col3 = st.columns([3, 5, 15], gap = "large")
+col2, col3 = st.columns([5, 15], gap = "large")
 
 with col2:
     st.image("https://forgemia.inra.fr/ludovic.mailleret/figures/-/raw/master/forest_dieback/forest_dieback.png", width=300)
@@ -79,10 +79,6 @@ with col32:
     if plotChoice == "Simuler une augmentation de la température ?":
         Tslope = st.slider("Vitesse d'accroissement de la Température",  min_value=0., max_value=.15, value = .08, step=0.01)  
         # il manque la sim contre le temps ici
-
-        # et il faut faire une multipage app
-
-
 
 with col33:
     if plotChoice == "Dynamiques":

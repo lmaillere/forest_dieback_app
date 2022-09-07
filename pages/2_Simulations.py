@@ -5,9 +5,9 @@ from utils.funDBapp import *
 
 st.set_page_config(layout="wide", page_title = "Simulations")
 
-st.sidebar.header("Modélisation")
+st.sidebar.header("Simulations")
 
-col1, col2, col3 = st.columns([3, 5, 15], gap = "large")
+col2, col3 = st.columns([5, 15], gap = "large")
 
 with col2:
     st.image("https://forgemia.inra.fr/ludovic.mailleret/figures/-/raw/master/forest_dieback/forest_dieback.png", width=300)
