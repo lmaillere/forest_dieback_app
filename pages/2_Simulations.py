@@ -51,7 +51,7 @@ with col32:
     if plotChoice == "Simuler une augmentation de la température ?":
         climChange = True
         plotTraj = True
-        Tslope = st.slider("Vitesse d'accroissement de la Température",  min_value=0., max_value=.15, value = .04, step=0.01)  
+        Tslope = st.slider("Vitesse d'accroissement de la Température",  min_value=0., max_value=.15, value = .02, step=0.01)  
         # il manque la sim contre le temps ici
         fig_sim_climChg = plotSimClimchg(v0 = v0, gamma = gamma, T_f = T_f, params = params_sim, plotTraj = plotTraj, climChange = climChange, Tslope = Tslope)
         st.pyplot(fig_sim_climChg)
