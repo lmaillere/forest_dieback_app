@@ -442,7 +442,7 @@ def plotSimClimchg(v0, gamma, T_f, params, plotTraj, climChange, Tslope = 0):
     
     fig21, ax21 = plt.subplots(figsize=(8, 6))  
 
-    ax21.plot(long_tspan, int_FDB_climChg, color = 'C1', label = "proportion de végétation")
+    ax21.plot(long_tspan, int_FDB_climChg, color = 'C0', label = "proportion de végétation")
     ax21.set_xlabel("temps", fontsize='12')
     ax21.set_ylabel("proportion de végétation $v$", fontsize='12')
     #fig21.suptitle(r'Proportion de végétation $v$', va='top', fontsize='14')
