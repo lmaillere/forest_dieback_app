@@ -4,7 +4,7 @@ import streamlit as st
 from utils.funDBapp import *
 
 
-st.set_page_config(layout="wide", page_title = "Modélisation")
+st.set_page_config(layout="wide", page_title = "Modélisation", page_icon = "🌳")
 
 st.sidebar.header("Modélisation")
 

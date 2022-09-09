@@ -3,7 +3,7 @@ import streamlit as st
 
 from utils.funDBapp import *
 
-st.set_page_config(layout="wide", page_title = "Simulations")
+st.set_page_config(layout="wide", page_title = "Simulations", page_icon ="📈")
 
 st.sidebar.header("Simulations")
 

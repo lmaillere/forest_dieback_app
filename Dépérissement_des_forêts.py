@@ -3,7 +3,7 @@ import streamlit as st
 
 from utils.funDBapp import *
 
-st.set_page_config(layout="wide", page_title = "Introduction")
+st.set_page_config(layout="wide", page_title = "Introduction", page_icon ="📚")
 
 st.sidebar.header("Introduction")
 
