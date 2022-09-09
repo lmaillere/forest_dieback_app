@@ -15,4 +15,10 @@ with col3:
     st.markdown("$~$")
     st.markdown("# Dépérissement des forêts et points de basculement")
 
-st.markdown("*Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.*")
+st.markdown("## Introduction")
+st.markdown("Cette application introduit un modèle très simple de dépérissement des forêts proposé dans l'article scientifique [(Ritchie *et al.* 2021)](https://www.nature.com/articles/s41586-021-03263-2). Elle permet de :")
+st.markdown("- simuler les dynamiques et observer les changements impliqués par des conditions initiales différentes")
+st.markdown("- étudier l'influence de différents paramètres ou processus comme la température ou la déforestation, par l'intermédiaire de diagrammes de bifurcation")
+st.markdown("- simuler l'influence de scenarios de changement climatique correspondant à des augmentations de la température de l'environnement") 
+
+    
