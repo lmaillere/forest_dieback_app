@@ -21,4 +21,3 @@ st.markdown("- simuler les dynamiques et observer les changements impliqués par
 st.markdown("- étudier l'influence de différents paramètres ou processus comme la température ou la déforestation, par l'intermédiaire de diagrammes de bifurcation")
 st.markdown("- simuler l'influence de scenarios de changement climatique correspondant à des augmentations de la température de l'environnement") 
 
-    
