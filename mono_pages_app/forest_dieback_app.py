@@ -11,7 +11,7 @@ with col2:
     st.image("https://forgemia.inra.fr/ludovic.mailleret/figures/-/raw/master/forest_dieback/forest_dieback.png", width=300)
 with col3:
     st.markdown("$~$")
-    st.markdown("# Dépérissement des forêts et points de basculement")
+    st.markdown("# Dépérissement des forêts et points de bascule")
 
 col11, col12, col13 = st.columns([3,11, 10],gap = "large")
 

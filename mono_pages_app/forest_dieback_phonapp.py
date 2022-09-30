@@ -7,7 +7,7 @@ col1, col2, col3 = st.columns([0.5, 5, 1])
 
 with col2:
     st.image("https://forgemia.inra.fr/ludovic.mailleret/figures/-/raw/master/forest_dieback/forest_dieback.png", width = 400)
-    st.markdown("## Dépérissement des forêts et points de basculement")
+    st.markdown("## Dépérissement des forêts et points de bascule")
 
 with col2:
     tab1, tab2 = st.tabs(["Modèle", "Simulations"])

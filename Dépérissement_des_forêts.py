@@ -13,7 +13,7 @@ with col2:
     st.image("https://forgemia.inra.fr/ludovic.mailleret/figures/-/raw/master/forest_dieback/forest_dieback.png", width=300)
 with col3:
     st.markdown("$~$")
-    st.markdown("# Dépérissement des forêts et points de basculement")
+    st.markdown("# Dépérissement des forêts et points de bascule")
 
 st.markdown("## Introduction")
 st.markdown("Cette application introduit un modèle très simple de dépérissement des forêts proposé dans l'article scientifique [(Ritchie *et al.* 2021)](https://www.nature.com/articles/s41586-021-03263-2). Elle permet de :")
