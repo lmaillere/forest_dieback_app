@@ -42,7 +42,7 @@ with col2:
         st.markdown("#### Paramètres")
     
         if plotChoice == "Dynamiques" or plotChoice == "Bifurcations / température" or plotChoice == "Bifurcations / perturbations" or plotChoice == "Simuler une augmentation de la température ?":
-            v0 = st.slider(' Proportion de végétation initiale', min_value=0., max_value=1., value = .3, step=0.05)  
+            v0 = st.slider(' Proportion de végétation initiale', min_value=0., max_value=1., value = .5, step=0.05)  
     
         gamma = st.slider(' Taux de déforestation', min_value=.1, max_value=.7, value = .3, step=0.05) 
         T_f =  st.slider(' Température de l\'environnement à l\'ombre', min_value=16., max_value=30., value = 22., step=0.5)  
