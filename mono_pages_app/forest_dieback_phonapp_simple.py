@@ -45,7 +45,7 @@ with col2:
             v0 = st.slider(' Proportion de végétation initiale', min_value=0., max_value=1., value = .5, step=0.05)  
         
         gamma = st.slider(' Taux de déforestation', min_value=.1, max_value=.7, value = .1, step=0.1) 
-        T_f =  st.slider(' Température de l\'environnement à l\'ombre', min_value=19., max_value=30., value = 22., step=1.)  
+        T_f =  st.slider(' Température de l\'environnement à l\'ombre', min_value=19., max_value=30., value = T_fbase, step=1.)  
 
         params_sim = np.array([g_0, T_opt, beta, T_f, a, gamma])
 
