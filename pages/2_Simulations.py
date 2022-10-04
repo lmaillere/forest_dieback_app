@@ -24,7 +24,7 @@ with col121:
 
 col22, col23, col24 = st.columns([7, 7, 7], gap = "large")
 with col22:
-    v0 = st.slider(' Proportion de végétation initiale', min_value=0., max_value=1., value = .3, step=0.05, disabled = False)  
+    v0 = st.slider(' Proportion de végétation initiale', min_value=0., max_value=1., value = .5, step=0.05, disabled = False)  
 
 with col23:
     gamma = st.slider(' Taux de déforestation', min_value=0.1, max_value=.7, value = .3, step=0.05) 
