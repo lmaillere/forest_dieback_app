@@ -11,9 +11,16 @@ P = np.polynomial.Polynomial
 # parameters
 g_0 = 1.
 T_opt = 26.
-beta = 7.
+beta = 8.5
 a = 12.
-T_fbase = 22.
+T_fbase = 24.
+
+#From Ritchie et al. 2021, adapted to Amazonian forest dieback
+# g_0 = 2.
+#T_opt = 28.
+# beta = 10.
+# a = 5.
+#T_fbase = 26.
 
 #########################################################
 # general fonctions
