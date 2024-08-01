@@ -94,7 +94,7 @@ def modeleFDB_climChg(etat, t, params_sim, Tslope):
     return vdot
 
 # fonction pour intégration et plot des dynamiques
-@st.experimental_singleton
+#@st.experimental_singleton
 def plotSim(v0, gamma, T_f, params, tspan = tspan):
     g_0, T_opt, beta = params[0:3]
     a = params[4]
@@ -151,7 +151,7 @@ def plotSim(v0, gamma, T_f, params, tspan = tspan):
     return fig1
     
 # fonction pour intégration et plot de toutes les dynamiques
-@st.experimental_singleton
+#@st.experimental_singleton
 def plotSimAll(gamma, T_f, params, tspan = tspan):
     g_0, T_opt, beta = params[0:3]
     a = params[4]
@@ -235,7 +235,7 @@ def getEqs(gamma, T_f, params):
     return v_roots, y_roots
 
 # plot les courbes définissant les eq positifs et plotte les équilibres positifs
-@st.experimental_singleton
+#@st.experimental_singleton
 def plotEqs(gamma, T_f, params):
     g_0, T_opt, beta = params[0:3]
     a = params[4]
@@ -270,7 +270,7 @@ def plotEqs(gamma, T_f, params):
 
 #################################################################
 # partie bifurcation vs gamma
-@st.experimental_singleton
+#@st.experimental_singleton
 def plotBifGamma(v0, gamma, T_f,  params, plotTraj):
     g_0, T_opt, beta = params[0:3]
     a = params[4]
@@ -355,7 +355,7 @@ def Tf2(v, params):
     return T_opt+a*(v-1)-beta*np.sqrt(1-gamma/(g_0*(1-v)))
 
 # bifurcations vs T
-@st.experimental_singleton
+#@st.experimental_singleton
 def plotBifTf(v0, gamma, T_f, params, plotTraj, climChange, Tslope = 0):
     g_0, T_opt, beta = params[0:3]
     a = params[4]
@@ -439,7 +439,7 @@ def plotBifTf(v0, gamma, T_f, params, plotTraj, climChange, Tslope = 0):
 
 
 # trajectoire contre le temps climate change
-@st.experimental_singleton
+#@st.experimental_singleton
 def plotSimClimchg(v0, gamma, T_f, params, plotTraj, climChange, Tslope = 0):
     g_0, T_opt, beta = params[0:3]
     a = params[4]
